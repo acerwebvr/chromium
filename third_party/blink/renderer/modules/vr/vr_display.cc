@@ -130,6 +130,8 @@ VRController* VRDisplay::Controller() {
 
 void VRDisplay::Update(const device::mojom::blink::VRDisplayInfoPtr& display) {
   display_name_ = display->displayName;
+  // acerxr_button_ = display->acerxrbutton; //[Leo] 20180831 add trigger button temporarily
+  acerxr_button_ = GetDocument()->Url().GetString();
   is_connected_ = true;
 
   capabilities_->SetHasPosition(display->capabilities->hasPosition);
@@ -353,21 +355,24 @@ ScriptPromise VRDisplay::requestPresent(ScriptState* script_state,
   }
 
   bool first_present = !is_presenting_;
-  Document* doc = GetDocument();
+  // Document* doc = GetDocument(); // [Leo] 20180824 remove for "Presentation
+  // request was denied" problem
 
   // Initiating VR presentation is only allowed in response to a user gesture.
   // If the VRDisplay is already presenting, however, repeated calls are
   // allowed outside a user gesture so that the presented content may be
   // updated.
   if (first_present) {
-    if (!Frame::HasTransientUserActivation(doc ? doc->GetFrame() : nullptr)) {
+    // [Leo] 20180824 remove for "Presentation request was denied" problem ++
+    /*if (!Frame::HasTransientUserActivation(doc ? doc->GetFrame() : nullptr)) {
       DOMException* exception =
           DOMException::Create(DOMExceptionCode::kInvalidStateError,
                                "API can only be initiated by a user gesture.");
       resolver->Reject(exception);
       ReportPresentationResult(PresentationResult::kNotInitiatedByUserGesture);
       return promise;
-    }
+    }*/
+    // [Leo] 20180824 remove for "Presentation request was denied" problem --
 
     // When we are requesting to start presentation with a user action or the
     // display has activated, record the user action.
@@ -575,6 +580,14 @@ ScriptPromise VRDisplay::exitPresent(ScriptState* script_state) {
 
 void VRDisplay::BeginPresent() {
   Document* doc = this->GetDocument();
+  
+  // [Leo] pass URL ++
+  Document* doc_url = GetDocument();
+  device::mojom::blink::AcerXRUrlInfoPtr acerxrurlinfo =
+      device::mojom::blink::AcerXRUrlInfo::New();
+  acerxrurlinfo->uul = doc_url->Url().GetString();
+  vr_presentation_provider_->UpdateAcerXRUrl(std::move(acerxrurlinfo));
+  // [Leo] pass URL --
 
   DOMException* exception = nullptr;
   if (!frame_transport_) {

@@ -172,6 +172,10 @@ void OpenVRRenderLoop::UpdateLayerBounds(int16_t frame_id,
   source_size_ = source_size;
 };
 
+void OpenVRRenderLoop::UpdateAcerXRUrl(mojom::AcerXRUrlInfoPtr acerxrurlinfo) // [Leo] add mojo implement
+                                          {
+};
+
 void OpenVRRenderLoop::RequestSession(
     base::OnceCallback<void()> on_presentation_ended,
     mojom::XRRuntimeSessionOptionsPtr options,

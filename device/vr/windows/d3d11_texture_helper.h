@@ -33,6 +33,8 @@ class D3D11TextureHelper {
   void SetBackbuffer(Microsoft::WRL::ComPtr<ID3D11Texture2D> back_buffer);
   Microsoft::WRL::ComPtr<ID3D11Device> GetDevice();
 
+  HANDLE m_SyncTexture_Target;  // [Leo] 20180817 Get the handle for UWP
+  bool Is_SyncTexture_Target_Created();// [Leo] 20180817 Get the handle for UWP
  private:
   bool CopyTextureWithFlip();
   bool EnsureRenderTargetView();
@@ -40,6 +42,7 @@ class D3D11TextureHelper {
   bool EnsureInputLayout();
   bool EnsureVertexBuffer();
   bool EnsureSampler();
+  bool IsSyncTextureTargetCreated = false;// [Leo] 20180817 Get the handle for UWP
   Microsoft::WRL::ComPtr<IDXGIAdapter> GetAdapter();
 
   struct RenderState {
@@ -59,7 +62,9 @@ class D3D11TextureHelper {
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> shader_resource_;
     Microsoft::WRL::ComPtr<ID3D11Texture2D> target_texture_;
     Microsoft::WRL::ComPtr<ID3D11Texture2D> source_texture_;
+    Microsoft::WRL::ComPtr<ID3D11Texture2D> acer_target_texture_;// [Leo] 20180817 Get the handle for UWP
     Microsoft::WRL::ComPtr<IDXGIKeyedMutex> keyed_mutex_;
+    Microsoft::WRL::ComPtr<IDXGIKeyedMutex> Acer_keyed_mutex_;// [Leo] 20180817 Get the mutex for UWP
   };
 
   RenderState render_state_;

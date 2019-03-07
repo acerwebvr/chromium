@@ -54,6 +54,7 @@ class VRDisplay final : public EventTargetWithInlineData,
   // We hand out at most one VRDisplay, so hardcode displayId to 1.
   unsigned displayId() const { return 1; }
   const String& displayName() const { return display_name_; }
+  const String& acerxrbutton() const { return acerxr_button_; } //[Leo] 20180831 add trigger button temporarily
 
   VRDisplayCapabilities* capabilities() const { return capabilities_; }
   VRStageParameters* stageParameters() const { return stage_parameters_; }
@@ -164,6 +165,7 @@ class VRDisplay final : public EventTargetWithInlineData,
 
   Member<NavigatorVR> navigator_vr_;
   String display_name_;
+  String acerxr_button_; //[Leo] 20180831 add trigger button temporarily
   bool is_connected_ = false;
   bool is_presenting_ = false;
   bool is_valid_device_for_presenting_ = true;

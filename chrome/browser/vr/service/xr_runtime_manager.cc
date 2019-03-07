@@ -37,6 +37,12 @@
 #include "device/vr/openvr/openvr_device_provider.h"
 #endif
 
+// [Leo ]20180810 enable Acerxr provider ++
+#if BUILDFLAG(ENABLE_ACER_XR)
+#include "device/vr/acerxr/acerxr_device_provider.h"
+#endif
+// [Leo ]20180810 enable Acerxr provider --
+
 #if BUILDFLAG(ENABLE_OCULUS_VR)
 #include "device/vr/oculus/oculus_device_provider.h"
 #endif
@@ -67,6 +73,14 @@ XRRuntimeManager* XRRuntimeManager::GetInstance() {
 #if BUILDFLAG(ENABLE_ISOLATED_XR_SERVICE)
     providers.emplace_back(std::make_unique<vr::IsolatedVRDeviceProvider>());
 #else
+
+// [Leo ]20180810 enable Acerxr provider ++
+#if BUILDFLAG(ENABLE_ACER_XR)
+    providers.emplace_back(std::make_unique<device::AcerXRDeviceProvider>());
+    // providers.emplace_back(std::make_unique<device::OpenVRDeviceProvider>());
+#endif
+ // [Leo ]20180810 enable Acerxr provider --
+
 #if BUILDFLAG(ENABLE_OPENVR)
     if (base::FeatureList::IsEnabled(features::kOpenVR))
       providers.emplace_back(std::make_unique<device::OpenVRDeviceProvider>());
@@ -83,7 +97,8 @@ XRRuntimeManager* XRRuntimeManager::GetInstance() {
 #endif
 #endif  // ENABLE_ISOLATED_XR_SERVICE
 
-    if (base::FeatureList::IsEnabled(features::kWebXrOrientationSensorDevice)) {
+    // if (base::FeatureList::IsEnabled(features::kWebXrOrientationSensorDevice)) {//[Leo] enable the WebXR 20181108
+    if (true) {//[Leo] enable the WebXR 20181108
       content::ServiceManagerConnection* connection =
           content::ServiceManagerConnection::GetForProcess();
       if (connection) {

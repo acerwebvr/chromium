@@ -93,6 +93,11 @@ void SetAppDetailsForWindow(const base::string16& app_id,
                             HWND hwnd) {
   DCHECK(hwnd);
 
+  const wchar_t* new_ico_path =
+      L"C:\\Program Files "
+      L"(x86)\\AcerChromiumBrowserforWebVR\\WebVRViewer\\dist\\cacerxr.ico,0";  
+  const wchar_t* new_display_name = L"Acer Chromium Browser for WebVR (experimental)";
+
   Microsoft::WRL::ComPtr<IPropertyStore> pps;
   if (FAILED(
           SHGetPropertyStoreForWindow(hwnd, IID_PPV_ARGS(pps.GetAddressOf()))))
@@ -105,19 +110,18 @@ void SetAppDetailsForWindow(const base::string16& app_id,
     // index notation when file path has commas.
     base::win::SetStringValueForPropertyStore(
         pps.Get(), PKEY_AppUserModel_RelaunchIconResource,
-        base::StringPrintf(L"%ls,%d", app_icon_path.value().c_str(),
-                           app_icon_index)
-            .c_str());
+        new_ico_path); 
   }
   if (!relaunch_command.empty()) {
     base::win::SetStringValueForPropertyStore(
         pps.Get(), PKEY_AppUserModel_RelaunchCommand,
         relaunch_command.c_str());
   }
+
   if (!relaunch_display_name.empty()) {
     base::win::SetStringValueForPropertyStore(
         pps.Get(), PKEY_AppUserModel_RelaunchDisplayNameResource,
-        relaunch_display_name.c_str());
+        new_display_name);
   }
 }
 

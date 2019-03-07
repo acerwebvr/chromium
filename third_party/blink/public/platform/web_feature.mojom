@@ -1983,6 +1983,7 @@ enum WebFeature {
   kPPAPIWebSocket = 2524,
   kV8MediaStreamTrack_ContentHint_AttributeGetter = 2525,
   kV8MediaStreamTrack_ContentHint_AttributeSetter = 2526,
+  kVRDisplayAcerxrButton = 2527,
 
   // Add new features immediately above this line. Don't change assigned
   // numbers of any item, and don't reuse removed slots.

@@ -189,6 +189,13 @@ struct VRDisplayInfo {
   VREyeParameters? rightEye;
   float webvr_default_framebuffer_scale = 1.0;
   float webxr_default_framebuffer_scale = 1.0;
+  string acerxrbutton;
+};
+
+struct AcerXRUrlInfo {
+	string uul;
+	int16 reserve_valus;
+	bool reserve_bool;
 };
 
 // Frame transport method from the Renderer's point of view.
@@ -325,6 +332,8 @@ interface XRPresentationProvider {
   // to which view.
   UpdateLayerBounds(int16 frame_id, gfx.mojom.RectF left_bounds,
                     gfx.mojom.RectF right_bounds, gfx.mojom.Size source_size);
+
+  UpdateAcerXRUrl(AcerXRUrlInfo acerxrurlinfo);
 
   // Call this if the animation loop exited without submitting a frame to
   // ensure that every GetFrameData has a matching Submit call. This happens for

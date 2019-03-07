@@ -46,7 +46,7 @@ IDR_MAINFRAME_4         ICON       "theme\\google_chrome\\win\\placeholder.ico"
 // identify it.
 IDR_SXS                 ICON       "theme\\google_chrome\\win\\chrome_sxs.ico"
 #else
-IDR_MAINFRAME           ICON       "theme\\chromium\\win\\chromium.ico"
+IDR_MAINFRAME           ICON       "theme\\chromium\\win\\cacerxr.ico"
 #endif
 
 // Start a naming scheme to keep icons in order. A leading X is used to keep

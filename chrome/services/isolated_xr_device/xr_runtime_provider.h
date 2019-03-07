@@ -31,6 +31,7 @@ class IsolatedXRRuntimeProvider
 
   std::unique_ptr<device::OculusDevice> oculus_device_;
   std::unique_ptr<device::OpenVRDevice> openvr_device_;
+  std::unique_ptr<device::AcerXRDevice> acerxr_device_; //[Leo] add AcerXRDevice 20180810
 
   device::mojom::IsolatedXRRuntimeProviderClientPtr client_;
 };

@@ -219,16 +219,20 @@ void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
   if (command_line.HasSwitch(switches::kEnableUnsafeWebGPU))
     WebRuntimeFeatures::EnableWebGPU(true);
 
-  if (command_line.HasSwitch(switches::kEnableWebVR))
+  // if (command_line.HasSwitch(switches::kEnableWebVR)) //[Leo] enable the WebVR 20180810
+  if (true) //[Leo] enable the WebVR 20180810
     WebRuntimeFeatures::EnableWebVR(true);
 
-  if (base::FeatureList::IsEnabled(features::kWebXr))
+   if (base::FeatureList::IsEnabled(features::kWebXr)) //[Leo] enable the WebXR 20181108  // [Leo] rollback for bug fixed (supermedium will fail toload)
+   // if (true) //[Leo] enable the WebXR 20181108
     WebRuntimeFeatures::EnableWebXR(true);
 
-  if (base::FeatureList::IsEnabled(features::kWebXrGamepadSupport))
+  // if (base::FeatureList::IsEnabled(features::kWebXrGamepadSupport)) //[Leo] enable the WebXRGamepadSupport 20180920
+   if (true) //[Leo] enable the WebXRGamepadSupport 20180920
     WebRuntimeFeatures::EnableWebXRGamepadSupport(true);
 
-  if (base::FeatureList::IsEnabled(features::kWebXrHitTest))
+  if (base::FeatureList::IsEnabled(features::kWebXrHitTest)) //[Leo] enable the WebXR 20181108 // [Leo] rollback for bug fixed (supermedium will fail toload)
+  // if (true) //[Leo] enable the WebXR 20181108
     WebRuntimeFeatures::EnableWebXRHitTest(true);
 
   if (command_line.HasSwitch(switches::kDisablePresentationAPI))
@@ -311,7 +315,8 @@ void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
   WebRuntimeFeatures::EnableNetworkService(
       base::FeatureList::IsEnabled(network::features::kNetworkService));
 
-  if (base::FeatureList::IsEnabled(features::kGamepadExtensions))
+  // if (base::FeatureList::IsEnabled(features::kGamepadExtensions))//[Leo] enable the EnableGamepadExtensions 20180920
+  	 if (true) //[Leo] enable the EnableGamepadExtensions 20180920
     WebRuntimeFeatures::EnableGamepadExtensions(true);
 
   if (base::FeatureList::IsEnabled(features::kGamepadVibration))

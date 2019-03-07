@@ -164,10 +164,12 @@ void XRDeviceImpl::RequestSession(
   }
 
   // Check that the request is coming from a focused page if required.
-  if (!in_focused_frame_ && options->immersive) {
+  // [Leo] 20180824 remove for "Presentation request was denied" problem ++
+  /*if (!in_focused_frame_ && options->immersive) {
     std::move(callback).Run(nullptr);
     return;
-  }
+  }*/  
+  // [Leo] 20180824 remove for "Presentation request was denied" problem --
 
   BrowserXRRuntime* presenting_runtime =
       XRRuntimeManager::GetInstance()->GetImmersiveRuntime();
@@ -312,10 +314,17 @@ void XRDeviceImpl::OnDeactivate(device::mojom::VRDisplayEventReason reason) {
 bool XRDeviceImpl::IsSecureContextRequirementSatisfied() {
   // We require secure connections unless both the webvr flag and the
   // http flag are enabled.
+  // [Leo] 20180810 enable WebVR ++
+  /*
   bool requires_secure_context =
       !kAllowHTTPWebVRWithFlag ||
       !base::CommandLine::ForCurrentProcess()->HasSwitch(
           switches::kEnableWebVR);
+  */
+  
+  bool requires_secure_context =
+      !kAllowHTTPWebVRWithFlag;
+  // [Leo] 20180810 enable WebVR --
   if (!requires_secure_context)
     return true;
   return IsSecureContext(render_frame_host_);

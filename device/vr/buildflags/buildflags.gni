@@ -13,6 +13,8 @@ declare_args() {
   enable_gvr_services = is_android && !is_chromecast &&
                         (current_cpu == "arm" || current_cpu == "arm64")
   enable_openvr = is_win
+  # [Leo] 20180810 add acerxr
+  enable_acer_xr = true
 
   # To build with Oculus support, the Oculus SDK for Windows will need to be
   # installed in third_party/libovr/src.  See

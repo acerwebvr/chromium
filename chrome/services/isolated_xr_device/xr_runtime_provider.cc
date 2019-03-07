@@ -42,6 +42,21 @@ void IsolatedXRRuntimeProvider::RequestDevices(
   }
 #endif
 
+//[Leo] 20180810 add AcerXRDevice ++
+#if BUILDFLAG(ENABLE_ACER_XR)
+  if (true) {
+    acerxr_device_ = std::make_unique<device::AcerXRDevice>();
+    if (!acerxr_device_->IsInitialized()) {
+      acerxr_device_ = nullptr;
+    } else {
+      client->OnDeviceAdded(acerxr_device_->BindXRRuntimePtr(),
+                            acerxr_device_->BindGamepadFactory(),
+                            acerxr_device_->GetVRDisplayInfo());
+    }
+  }
+#endif
+//[Leo] 20180810 add AcerXRDevice --
+
   client->OnDevicesEnumerated();
   client_ = std::move(client);
 }

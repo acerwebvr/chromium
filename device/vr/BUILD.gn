@@ -106,7 +106,34 @@ if (enable_vr) {
       ]
     }
 
-    if (is_win && (enable_openvr || enable_oculus_vr)) {
+    # [Leo] 20180810 add acerxr ++
+    if (enable_acer_xr) {
+      deps += [
+        "//device/gamepad",
+        "//device/gamepad/public/cpp:shared_with_blink",
+        "//third_party/openvr:openvr",
+      ]
+      sources += [
+        "acerxr/acerxr_api_wrapper.cc",
+        "acerxr/acerxr_api_wrapper.h",
+        "acerxr/acerxr_device.cc",
+        "acerxr/acerxr_device.h",
+        "acerxr/acerxr_device_provider.cc",
+        "acerxr/acerxr_device_provider.h",
+        "acerxr/acerxr_gamepad_helper.cc",
+        "acerxr/acerxr_gamepad_helper.h",
+        "acerxr/acerxr_render_loop.cc",
+        "acerxr/acerxr_render_loop.h",
+        "acerxr/acerxr_type_converters.cc",
+        "acerxr/acerxr_type_converters.h",
+        "acerxr/Acer_Socket.cpp",
+        "acerxr/Acer_Socket.h",
+        "acerxr/test/test_hook.h",
+      ]
+    }
+    # [Leo] 20180810 add acerxr --
+
+    if (is_win && (enable_openvr || enable_oculus_vr || enable_acer_xr)) { # [Leo] 20180810 add acerxr
       libs = [
         "d3d11.lib",
         "DXGI.lib",

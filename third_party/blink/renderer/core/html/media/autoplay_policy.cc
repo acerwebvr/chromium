@@ -393,8 +393,9 @@ void AutoplayPolicy::OnVisibilityChangedForAutoplay(bool is_visible) {
 }
 
 bool AutoplayPolicy::IsUsingDocumentUserActivationRequiredPolicy() const {
-  return GetAutoplayPolicyForDocument(element_->GetDocument()) ==
-         AutoplayPolicy::Type::kDocumentUserActivationRequired;
+  return false;
+  // return GetAutoplayPolicyForDocument(element_->GetDocument()) ==
+  //       AutoplayPolicy::Type::kDocumentUserActivationRequired;
 }
 
 void AutoplayPolicy::MaybeSetAutoplayInitiated() {

@@ -17,6 +17,8 @@ enum VREye {
 
     // A user-readable name identifying the device.
     [MeasureAs=VRDisplayDisplayName] readonly attribute DOMString displayName;
+	//[Leo] 20180831 add trigger button temporarily
+	[MeasureAs=VRDisplayAcerxrButton] readonly attribute DOMString acerxrbutton;
 
     readonly attribute boolean isPresenting;
 

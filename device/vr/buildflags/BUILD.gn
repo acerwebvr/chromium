@@ -6,6 +6,7 @@ import("buildflags.gni")
 import("//build/buildflag_header.gni")
 
 # Generate a buildflag header for compile-time checking of WebVR support.
+# [Leo] 20180810 add acerxr
 buildflag_header("buildflags") {
   header = "buildflags.h"
   flags = [
@@ -14,5 +15,6 @@ buildflag_header("buildflags") {
     "ENABLE_OCULUS_VR=$enable_oculus_vr",
     "ENABLE_OPENVR=$enable_openvr",
     "ENABLE_VR=$enable_vr",
+    "ENABLE_ACER_XR=$enable_acer_xr",
   ]
 }

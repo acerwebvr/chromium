@@ -41,12 +41,25 @@ bool D3D11TextureHelper::CopyTextureToBackBuffer(bool flipY) {
   }
 
   bool success = true;
+  flipY = false; // reduce CopyResource
   if (flipY) {
     success = CopyTextureWithFlip();
   } else {
-    render_state_.d3d11_device_context_->CopyResource(
+    /*render_state_.d3d11_device_context_->CopyResource(
         render_state_.target_texture_.Get(),
+        render_state_.source_texture_.Get());*/
+
+
+	HRESULT hr1 = render_state_.Acer_keyed_mutex_->AcquireSync(0, 11); // AcquireSync(0, 11); 
+    if (FAILED(hr1) || hr1 == WAIT_TIMEOUT || hr1 == WAIT_ABANDONED) {
+      // We failed to acquire the lock.  We'll drop this frame, but subsequent
+      // frames won't be affected.
+      return false;
+    }
+    render_state_.d3d11_device_context_->CopyResource(
+        render_state_.acer_target_texture_.Get(),
         render_state_.source_texture_.Get());
+    render_state_.Acer_keyed_mutex_->ReleaseSync(1);
   }
 
   render_state_.keyed_mutex_->ReleaseSync(0);
@@ -236,8 +249,46 @@ void D3D11TextureHelper::AllocateBackBuffer() {
     render_state_.d3d11_device_->CreateTexture2D(
         &desc_source, nullptr,
         render_state_.target_texture_.ReleaseAndGetAddressOf());
+
+	// [Leo] 20180817 CreateTexture2D for UWP ++ 
+	desc_source.MiscFlags = D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX;
+	render_state_.d3d11_device_->CreateTexture2D(
+        &desc_source, nullptr,
+        render_state_.acer_target_texture_.ReleaseAndGetAddressOf());
+	// [Leo] 20180817 CreateTexture2D for UWP --
+
+	// [Leo] 20180817 Get the handle for UWP ++ 
+    IDXGIResource1 *pDXIResourceAecr;
+    // HANDLE m_SyncTexture_Target;
+   
+    render_state_.acer_target_texture_->QueryInterface(
+        __uuidof(IDXGIResource1), (void**)&pDXIResourceAecr);
+	{
+      pDXIResourceAecr->GetSharedHandle(&m_SyncTexture_Target);
+        pDXIResourceAecr->Release();
+    }
+    // [Leo] 20180817 Get the handle for UWP ++ 
+
+	
+
+	// [Leo] 20180817 Get the mutex for UWP ++ 
+	render_state_.acer_target_texture_->QueryInterface(
+            __uuidof(IDXGIKeyedMutex),
+        reinterpret_cast<void**>(
+            render_state_.Acer_keyed_mutex_.ReleaseAndGetAddressOf()));
+    IsSyncTextureTargetCreated = true;
+	// [Leo] 20180817 Get the mutex for UWP --
   }
 }
+
+// [Leo] 20180817 Get the handle for UWP --
+bool D3D11TextureHelper::Is_SyncTexture_Target_Created() {
+	if (IsSyncTextureTargetCreated)
+		return true;
+	else
+		return false;
+}
+// [Leo] 20180817 Get the handle for UWP --
 
 const Microsoft::WRL::ComPtr<ID3D11Texture2D>&
 D3D11TextureHelper::GetBackbuffer() {

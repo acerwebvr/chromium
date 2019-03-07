@@ -1,7 +1,9 @@
 // Copyright (c) 2011 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
+extern "C" {
+  _declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
+}  //[Leo] 20180919 export NvOptimusEnablement
 #include <windows.h>
 #include <malloc.h>
 #include <stddef.h>
