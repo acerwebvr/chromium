@@ -1,4 +1,4 @@
-# ![Logo](chrome/app/theme/chromium/AcerChromiumBrowser_logo_64.png) Acer Chromium Browser for WebVR (Experimental)
+# ![Logo](https://github.com/acerwebvr/chromium/tree/Acer-Chromium-Browser-for-WebVR/chrome/app/theme/chromium/AcerChromiumBrowser_logo_64.png) Acer Chromium Browser for WebVR (Experimental)
 
 We release an Acer Chromium Browser for WebVR (Experimental) which bases on Chromium open source.  
 There is an UWP application required with Acer Windows Mixed Reality Headset, and it is embedded within our installer.   
