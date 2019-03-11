@@ -5,7 +5,8 @@ There is an UWP application required with Acer Windows Mixed Reality Headset, an
 
 You can experiecne our solution by download the solution from Github release [here](https://github.com/acerwebvr/chromium/releases/download/Acer-Chromiun-Browser-v1.00.1001/AcerChromiumBrowserforWebVR_Experimental_v1.00.1001.zip), and find open source of Acer Chromium Browser for WebVR in [Acer-Chromium-Browser-for-WebVR](https://github.com/acerwebvr/chromium/tree/Acer-Chromium-Browser-for-WebVR) branch of this repository.
 
-For more VR experience, visit Acer Start Page web site https://acerwebvr.github.io/
+For more VR experience, visit Acer Start Page web site https://acerwebvr.github.io/  
+![alt text](Acer-Start-Page.jpg)
 
 ===============================  
 Chromium is an open-source browser project that aims to build a safer, faster,
