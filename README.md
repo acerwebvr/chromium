@@ -6,7 +6,7 @@ You can experiecne our solution by download the solution from Github release. [h
 
 For more VR experience, visit Acer Start Page web site https://acerwebvr.github.io/
 
-===============================
+===============================  
 Chromium
 
 Chromium is an open-source browser project that aims to build a safer, faster,
